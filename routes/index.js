@@ -2,7 +2,12 @@ var express = require("express");
 var router = express.Router();
 
 /* GET home page. */
+
 router.get("/", function (req, res, next) {
+  res.render("index", { quoteSentence: "", quoteSentence_small: "" });
+});
+
+router.post("/quote", function (req, res, next) {
   let quotes = [
     [
       `How can a three-pound mass of jelly that you can hold in your palm imagine angels, contemplate the meaning of infinity, and even question its own place in the cosmos? 
@@ -191,13 +196,12 @@ router.get("/", function (req, res, next) {
     ],
   ];
 
-  selectedQuote = "";
-
   let randomNumber = Math.floor(Math.random() * quotes.length);
-  console.log(randomNumber);
-  
+  let selectedQuote = quotes[randomNumber];
 
-  res.render("index", { quote:  quotes[randomNumber]});
+  res.render("index", {
+    quoteSentence: selectedQuote,
+  });
 });
 
 module.exports = router;
